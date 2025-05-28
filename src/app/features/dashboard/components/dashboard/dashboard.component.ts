@@ -1,0 +1,18 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DashboardStore } from '../../store/dashboard.store';
+
+@Component({
+  selector: 'app-dashboard',
+  standalone: false,
+  templateUrl: './dashboard.component.html',
+  styleUrl: './dashboard.component.scss',
+  providers: [DashboardStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class DashboardComponent {
+  readonly store = inject(DashboardStore);
+
+  public ngOnInit(): void {
+    this.store.loadMouses();
+  }
+}

@@ -10,5 +10,5 @@ import { HeaderComponent } from './layout/components/header/header.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'mouse-app';
+  public title = 'mouse-app';
 }
