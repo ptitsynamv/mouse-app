@@ -15,4 +15,8 @@ export class DashboardComponent {
   public ngOnInit(): void {
     this.store.loadMouses();
   }
+
+  public removeMouse(id: string): void {
+    this.store.removeMouse(id);
+  }
 }
