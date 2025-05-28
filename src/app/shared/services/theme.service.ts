@@ -7,7 +7,7 @@ import { Theme } from '../interfaces/shared.interfaces';
 })
 export class ThemeService {
   private readonly _defaultTheme: Theme = Theme.Dark;
-  private readonly _themeKey: string = 'theme';
+  private readonly _themeKey: string = 'color-theme';
 
   constructor(private _localStorageService: LocalStorageService) {
     this._initTheme();
@@ -15,6 +15,11 @@ export class ThemeService {
 
   public setTheme(theme: Theme): void {
     this._localStorageService.setItem(this._themeKey, theme);
+    if (theme === Theme.Light) {
+      document.documentElement.classList.remove('dark');
+    } else {
+      document.documentElement.classList.add('dark');
+    }
   }
 
   public getTheme(): Theme | null {
