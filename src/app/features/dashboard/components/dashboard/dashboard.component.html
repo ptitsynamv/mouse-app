@@ -4,21 +4,19 @@
   >
     <p>No mouses found.</p>
   </ng-container>
-  <ng-container *ngIf="store.isLoading()">
-    <p>Loading...</p>
-  </ng-container>
+
+  <app-spinner *ngIf="store.isLoading()"> </app-spinner>
+
   <ng-container *ngIf="store.error()">
     <p>Error: {{ store.error() }}</p>
   </ng-container>
   <ng-container
     *ngIf="store.mouses().length > 0 && !store.isLoading() && !store.error()"
   >
-    <h1>
-      Mouses
-      <span
-        class="me-2 rounded-sm bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300"
-        >{{ store.mousesCount() }}</span
-      >
+    <h1
+      class="mb-4 bg-gradient-to-r from-sky-400 to-emerald-600 bg-clip-text text-3xl font-extrabold text-gray-900 text-transparent"
+    >
+      <span>Mouses ({{ store.mousesCount() }})</span>
     </h1>
 
     <div
