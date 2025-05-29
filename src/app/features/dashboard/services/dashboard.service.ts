@@ -12,28 +12,34 @@ export class DashboardService {
         id: crypto.randomUUID(),
         title: 'first mouse',
         description: 'This is the first mouse',
-        image: 'https://example.com/mouse1.jpg',
+        image: 'images/mouses/1.jpg',
         price: 29.99,
       },
       {
         id: crypto.randomUUID(),
         title: 'second mouse',
         description: 'This is the second mouse',
-        image: 'https://example.com/mouse2.jpg',
+        image: 'images/mouses/2.jpg',
         price: 39.99,
       },
       {
         id: crypto.randomUUID(),
         title: 'third mouse',
         description: 'This is the third mouse',
-        image: 'https://example.com/mouse3.jpg',
+        image: 'images/mouses/3.jpg',
         price: 49.99,
       },
     ]).pipe(delay(1000));
   }
 
-  public addMouse(mouse: Mouse): Observable<Mouse> {
-    return of(mouse).pipe(delay(1000));
+  public addMouse(): Observable<Mouse> {
+    return of({
+      id: crypto.randomUUID(),
+      title: 'New Mouse',
+      description: 'Description',
+      image: 'images/mouses/4.jpg',
+      price: 0,
+    }).pipe(delay(1000));
   }
 
   public removeMouse(id: string): Observable<void> {

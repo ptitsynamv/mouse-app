@@ -55,25 +55,16 @@ export const DashboardStore = signalStore(
       pipe(
         tap(() => patchState(store, { isLoading: true, error: null })),
         switchMap(() => {
-          return dashboardService
-            .addMouse({
-              id: crypto.randomUUID(),
-              title: 'New Mouse',
-              description: 'Description',
-              image: 'https://example.com/new-mouse.jpg',
-              price: 0,
-            })
-            .pipe(
-              tap({
-                next: (data: Mouse) =>
-                  patchState(store, {
-                    mouses: [...store.mouses(), data],
-                  }),
-                error: () =>
-                  patchState(store, { error: 'Failed to add mouse' }),
-                finalize: () => patchState(store, { isLoading: false }),
-              }),
-            );
+          return dashboardService.addMouse().pipe(
+            tap({
+              next: (data: Mouse) =>
+                patchState(store, {
+                  mouses: [...store.mouses(), data],
+                }),
+              error: () => patchState(store, { error: 'Failed to add mouse' }),
+              finalize: () => patchState(store, { isLoading: false }),
+            }),
+          );
         }),
       ),
     ),
