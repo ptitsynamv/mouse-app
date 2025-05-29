@@ -1,6 +1,7 @@
-<figure
+<a
   *ngIf="mouse"
   class="flex flex-col items-center justify-center rounded-t-lg border-b border-gray-200 bg-white p-8 text-center md:rounded-ss-lg md:rounded-t-none md:border-e dark:border-gray-700 dark:bg-gray-800"
+  routerLink="/mouse/{{ mouse.id }}"
 >
   <img class="rounded-t-lg" src="{{ mouse.image }}" alt="{{ mouse.title }}" />
   <blockquote
@@ -26,4 +27,4 @@
       Remove Mouse
     </span>
   </button>
-</figure>
+</a>

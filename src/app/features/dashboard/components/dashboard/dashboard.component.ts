@@ -10,7 +10,7 @@ import { DashboardStore } from '../../store/dashboard.store';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  readonly store = inject(DashboardStore);
+  public readonly store = inject(DashboardStore);
 
   public ngOnInit(): void {
     this.store.loadMouses();

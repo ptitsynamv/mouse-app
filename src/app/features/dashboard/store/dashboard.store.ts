@@ -4,6 +4,7 @@ import {
   patchState,
   signalStore,
   withComputed,
+  withHooks,
   withMethods,
   withState,
 } from '@ngrx/signals';
@@ -20,12 +21,14 @@ export interface Mouse {
 
 export interface DashboardState {
   mouses: Mouse[];
+  selectedMouse: Mouse | null;
   isLoading: boolean;
   error: string | null;
 }
 
 const initialState: DashboardState = {
   mouses: [],
+  selectedMouse: null,
   isLoading: false,
   error: null,
 };
@@ -74,12 +77,7 @@ export const DashboardStore = signalStore(
         switchMap((id) => {
           return dashboardService.removeMouse(id).pipe(
             tap({
-              next: () =>
-                patchState(store, {
-                  mouses: [
-                    ...store.mouses().filter((mouse) => mouse.id !== id),
-                  ],
-                }),
+              next: (mouses) => patchState(store, { mouses }),
               error: () =>
                 patchState(store, { error: 'Failed to remove mouse' }),
               finalize: () => patchState(store, { isLoading: false }),
@@ -88,5 +86,29 @@ export const DashboardStore = signalStore(
         }),
       ),
     ),
+    loadMouseById: rxMethod<string>((id$) =>
+      id$.pipe(
+        tap(() =>
+          patchState(store, {
+            isLoading: true,
+            error: null,
+            selectedMouse: null,
+          }),
+        ),
+        switchMap((id) => {
+          return dashboardService.getMouseById(id).pipe(
+            tap({
+              next: (selectedMouse) => patchState(store, { selectedMouse }),
+              error: () => patchState(store, { error: 'Failed to load mouse' }),
+              finalize: () => patchState(store, { isLoading: false }),
+            }),
+          );
+        }),
+      ),
+    ),
   })),
+  withHooks({
+    onInit: (store) => console.log('Store initialized', store),
+    onDestroy: (store) => console.log('Store destroyed', store),
+  }),
 );
