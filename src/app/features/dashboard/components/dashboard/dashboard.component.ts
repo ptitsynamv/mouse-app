@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { DashboardStore } from '../../store/dashboard.store';
 import { Mouse } from '../../../../shared/interfaces/shared.interfaces';
 
@@ -10,7 +15,7 @@ import { Mouse } from '../../../../shared/interfaces/shared.interfaces';
   providers: [DashboardStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   public readonly store = inject(DashboardStore);
 
   public ngOnInit(): void {
