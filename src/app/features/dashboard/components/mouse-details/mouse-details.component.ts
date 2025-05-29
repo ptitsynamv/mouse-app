@@ -1,16 +1,22 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { DashboardStore } from '../../store/dashboard.store';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { MainStore } from '../../../../store/main.store';
 
 @Component({
   selector: 'app-mouse-details',
   standalone: false,
   templateUrl: './mouse-details.component.html',
   styleUrl: './mouse-details.component.scss',
-  providers: [DashboardStore],
+  providers: [MainStore],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MouseDetailsComponent implements OnInit {
-  public readonly store = inject(DashboardStore);
+  public readonly store = inject(MainStore);
 
   constructor(private _route: ActivatedRoute) {}
 

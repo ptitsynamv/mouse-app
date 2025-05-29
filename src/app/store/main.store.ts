@@ -1,16 +1,18 @@
-import { signalStore, withState } from '@ngrx/signals';
+import { signalStore, withHooks, withState } from '@ngrx/signals';
+import { withDashboardStore } from '../features/dashboard/store/dashboard.store';
+import { withLogger } from './with-logger';
 
-type MainState = {
-  isLoading: boolean;
-  error: string | null;
-};
+export interface MainState {}
 
-const initialState: MainState = {
-  isLoading: false,
-  error: null,
-};
+const initialState: MainState = {};
 
 export const MainStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
+  withDashboardStore(),
+  withLogger('mouse-store'),
+  withHooks({
+    onInit: (store) => console.log('Store initialized', store),
+    onDestroy: (store) => console.log('Store destroyed', store),
+  }),
 );

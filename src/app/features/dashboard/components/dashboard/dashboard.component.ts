@@ -1,16 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DashboardStore } from '../../store/dashboard.store';
+import { MainStore } from '../../../../store/main.store';
+import { Mouse } from '../../store/dashboard.store';
 
 @Component({
   selector: 'app-dashboard',
   standalone: false,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
-  providers: [DashboardStore],
+  providers: [MainStore],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
-  public readonly store = inject(DashboardStore);
+  public readonly store = inject(MainStore);
 
   public ngOnInit(): void {
     this.store.loadMouses();
@@ -18,5 +19,9 @@ export class DashboardComponent {
 
   public removeMouse(id: string): void {
     this.store.removeMouse(id);
+  }
+
+  public identify(index: number, item: Mouse): string {
+    return item.id;
   }
 }

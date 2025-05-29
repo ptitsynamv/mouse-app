@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { NgIf } from '@angular/common';
 
@@ -7,6 +7,7 @@ import { NgIf } from '@angular/common';
   imports: [NgIf],
   templateUrl: './theme-button.component.html',
   styleUrl: './theme-button.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ThemeButtonComponent {
   constructor(private _themeService: ThemeService) {}

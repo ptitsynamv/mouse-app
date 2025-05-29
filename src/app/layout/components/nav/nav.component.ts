@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { signal } from '@angular/core';
 import { ThemeButtonComponent } from '../../../shared/components/theme-button/theme-button.component';
 import { RouterModule } from '@angular/router';
@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
   imports: [ThemeButtonComponent, RouterModule],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavComponent {
   public isMenuOpen = signal(false);

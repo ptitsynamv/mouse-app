@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Mouse } from '../store/dashboard.store';
-import { delay, filter, map, Observable, of } from 'rxjs';
+import { BehaviorSubject, delay, map, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DashboardService {
-  private _mouses: Mouse[] = [
+  private readonly _initialMouses: Mouse[] = [
     {
       id: '1',
       title: 'first mouse',
@@ -29,9 +29,11 @@ export class DashboardService {
       price: 49.99,
     },
   ];
+  private _mouses = new BehaviorSubject<Mouse[]>(this._initialMouses);
+  private mouses$ = this._mouses.asObservable();
 
   public getMouses(): Observable<Mouse[]> {
-    return of(this._mouses).pipe(delay(1000));
+    return of(this._mouses.getValue()).pipe(delay(1000));
   }
 
   public addMouse(): Observable<Mouse> {
@@ -43,19 +45,19 @@ export class DashboardService {
       price: 0,
     };
 
-    this._mouses.push(newMouse);
+    this._mouses.next([...this._mouses.getValue(), newMouse]);
     return of(newMouse).pipe(delay(1000));
   }
 
   public removeMouse(id: string): Observable<Mouse[]> {
-    return of(this._mouses).pipe(
+    return this.mouses$.pipe(
       map((mouses) => mouses.filter((mouse) => mouse.id !== id)),
       delay(1000),
     );
   }
 
   public getMouseById(id: string): Observable<Mouse | null> {
-    return of(this._mouses).pipe(
+    return this.mouses$.pipe(
       map((mouses) => mouses.find((mouse) => mouse.id === id) || null),
       delay(1000),
     );

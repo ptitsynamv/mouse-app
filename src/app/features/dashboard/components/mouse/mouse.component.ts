@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { Mouse } from '../../store/dashboard.store';
 
 @Component({
@@ -6,6 +12,7 @@ import { Mouse } from '../../store/dashboard.store';
   standalone: false,
   templateUrl: './mouse.component.html',
   styleUrl: './mouse.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MouseComponent {
   @Input() public mouse: Mouse | null = null;
