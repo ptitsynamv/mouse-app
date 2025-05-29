@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { Mouse } from '../../store/dashboard.store';
+import { Mouse } from '../../../../shared/interfaces/shared.interfaces';
 
 @Component({
   selector: 'app-mouse',

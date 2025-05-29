@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Mouse } from '../store/dashboard.store';
 import { BehaviorSubject, delay, map, Observable, of } from 'rxjs';
+import { Mouse } from '../../../shared/interfaces/shared.interfaces';
 
 @Injectable({
   providedIn: 'root',
